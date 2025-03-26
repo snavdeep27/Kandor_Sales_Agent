@@ -4,6 +4,7 @@ openai
 pymysql
 langchain
 langchain_community
+langchain_aws
 boto3
 python-dotenv
 fpdf
