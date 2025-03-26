@@ -3,6 +3,7 @@ streamlit
 openai
 pymysql
 langchain
+langchain_community
 boto3
 python-dotenv
 fpdf
