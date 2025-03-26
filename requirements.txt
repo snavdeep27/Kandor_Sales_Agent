@@ -1,0 +1,8 @@
+# Minimal packages you might need:
+streamlit
+openai
+pymysql
+langchain
+boto3
+python-dotenv
+fpdf
