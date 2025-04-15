@@ -8,7 +8,10 @@ readonly_main_db_config = {
     "password": "Humtum99",
     "db": "main",
     "charset": "utf8mb4",
-    "cursorclass": DictCursor
+    "cursorclass": DictCursor,
+    "connect_timeout": 20,  # Timeout for establishing connection (seconds)
+    "read_timeout": 60,     # Timeout for waiting for data from server (seconds) - Increase this!
+    "write_timeout": 60  
 }
 
 

@@ -4,7 +4,14 @@ openai
 pymysql
 langchain
 langchain_community
+langchain_openai
 langchain_aws
 boto3
 python-dotenv
 fpdf
+faiss-cpu 
+tenacity
+numpy
+scikit-learn
+tenacity
+
