@@ -8,10 +8,11 @@ langchain_openai
 langchain_aws
 boto3
 python-dotenv
-fpdf
+fpdf2
 faiss-cpu 
 tenacity
 numpy
 scikit-learn
 tenacity
+python-dateutil
 
