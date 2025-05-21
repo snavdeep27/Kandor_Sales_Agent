@@ -25,9 +25,12 @@ if not S3_BUCKET_NAME:
 # --- Import Tab Rendering Functions ---
 # Assuming db_connection, rag_utils etc. are available in the python path
 try:
-    from tabs import student_report, shortlist_users, college_explorer, ai_tools, koda_chats
+    from tabs import student_report, shortlist_users, college_explorer, ai_tools, koda_chats, student_followup
 except ImportError as e:
     st.error(f"Failed to import tab modules: {e}. Ensure the 'tabs' directory and files exist and are structured correctly.")
+    logging.critical(f"Tab module import error: {e}", exc_info=True)
+    st.stop()
+    st.error(f"Failed to import tab modules: {e}. Ensure 'student_followup.py' exists in 'tabs/'.")
     logging.critical(f"Tab module import error: {e}", exc_info=True)
     st.stop()
 except Exception as e:
@@ -65,6 +68,13 @@ def initialize_session_state():
     if "koda_chats_selected_user_index" not in st.session_state: st.session_state["koda_chats_selected_user_index"] = None
     if "koda_chats_ielts_profile" not in st.session_state: st.session_state["koda_chats_ielts_profile"] = {} # Cache per user index
     if "koda_chats_summary" not in st.session_state: st.session_state["koda_chats_summary"] = {} # Cache per user index
+    # Add keys for Student Followup tab
+    if "followup_loaded_user_phone" not in st.session_state: st.session_state["followup_loaded_user_phone"] = None
+    if "followup_db_profile" not in st.session_state: st.session_state["followup_db_profile"] = None # Includes users_latest_state + ielts_profile
+    if "followup_crm_record" not in st.session_state: st.session_state["followup_crm_record"] = None # Dict from sheet
+    if "followup_crm_row_index" not in st.session_state: st.session_state["followup_crm_row_index"] = None # Row index if record exists
+    if "followup_rag_suggestion" not in st.session_state: st.session_state["followup_rag_suggestion"] = None
+
 
 
 # --- Main Streamlit App Logic ---
@@ -76,8 +86,8 @@ def main():
     initialize_session_state()
 
     # --- Define Tabs ---
-    tab_titles = ["Student Report", "Shortlist Users", "College Explorer", "AI Tools", "Koda Chats"]
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(tab_titles)
+    tab_titles = ["Student Report", "Shortlist Users", "College Explorer", "AI Tools", "Koda Chats","Student Follow-up"]
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(tab_titles)
 
     # --- Render Tabs by Calling Functions from Imported Modules ---
     with tab1:
@@ -94,6 +104,8 @@ def main():
 
     with tab5:
         koda_chats.render() # Call the render function from followup_dashboard.py
+    with tab6: 
+        student_followup.render() 
 
 # --- Main Execution ---
 if __name__ == "__main__":

@@ -13,6 +13,10 @@ faiss-cpu
 tenacity
 numpy
 scikit-learn
-tenacity
 python-dateutil
+gspread 
+google-auth 
+google-auth-oauthlib 
+google-auth-httplib2 
+pandas                                        
 
